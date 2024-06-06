@@ -19,7 +19,7 @@ function loadImages(container, images = []){
     if (images.length === 0) return;
 
     // elemento donde se cargara la imagen al hacer click
-    const loader = document.querySelector('.loader')
+    // const loader = document.querySelector('.loader')
     const imgLoader = document.querySelector('.img-loader')
 
     images.forEach((item) => {
@@ -31,7 +31,7 @@ function loadImages(container, images = []){
         // asigno un escuchador de evento para que este se ejecute al hacer click
         img.addEventListener('click', (evento) => {
             //console.log("Haciendo click a la imagen")
-            loadImage(loader, evento.target)
+            loadImage(imgLoader, evento.target)
         })
 
         container.appendChild(img)
@@ -41,13 +41,12 @@ function loadImages(container, images = []){
 
     function loadImage(container, image){
         // console.log(image)
-        // container.src = image.src
-        // creamos la imagen <img />
-        const img = document.createElement('img')
-        img.classList.add('animate__animated', 'animate__fadeIn', 'img-list') // añadimos la clase img-list
-        img.src = image.src
-        container.innerHTML = ""
-        container.appendChild(img)
+        container.classList.remove('animate__animated', 'animate__fadeIn', 'img-list') // añadimos la clase img-list
+        container.src = image.src
+        // una vez finalizada la carga añadimos el estilo nuevamente
+        container.onload = function(){
+            container.classList.add('animate__animated', 'animate__fadeIn', 'img-list') // añadimos la clase img-list
+        }
     }
 
     /* const size = images.length;
